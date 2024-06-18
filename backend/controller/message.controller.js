@@ -1,11 +1,19 @@
 import ApiResponse from "../util/ApiResponse.js";
-import { Conversation } from "../model/conversation.model.js";
-import { Message } from "../model/message.model.js";
-import { User } from "../model/user.model.js";
+import Conversation from "../model/conversation.model.js";
+import Message from "../model/message.model.js";
+import User from "../model/user.model.js";
 
 export const sendMessage = async (req, res) => {
   try {
-    const senderId = req.user._id;
+    console.log(
+      `server side`,
+      req.body,
+      req.params,
+      req.user?._id,
+      "req.user._id"
+    );
+    const senderId = req.user?._id;
+    console.log(senderId, "senderId");
     const { id: receiverId } = req.params;
     const { message } = req.body;
 
@@ -61,7 +69,9 @@ export const sendMessage = async (req, res) => {
       "Message sent"
     );
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res
+      .status(500)
+      .json({ message: `Error from server Side due to: ${error.message}` });
   }
 };
 
@@ -69,8 +79,16 @@ export const getMessage = async (req, res) => {
   try {
     //userTOChatId is the id of the user to chat with other people that is the receiver
     const { id: userToChatIdWithOthers } = req.params;
-    const senderId = req.user._id;
-    const userToChatIdWithOthersUser = await User.findById(userToChatIdWithOthers).select("-password");
+    console.log(
+      userToChatIdWithOthers,
+      "userToChatIdWithOthers",
+      req.user?._id,
+      "req.user._id"
+    );
+    const senderId = req.user?._id;
+    const userToChatIdWithOthersUser = await User.findById(
+      userToChatIdWithOthers
+    ).select("-password");
 
     // const conversation = await Conversation.findOne({
     //   participants: { $all: [senderId, userToChatIdWithOthers] },
@@ -93,7 +111,12 @@ export const getMessage = async (req, res) => {
       return res.status(404).json({ message: "No message found" });
     }
 
-    ApiResponse(res, 200, { messages, openMessages :conversation.openMessages}, "Message found");
+    ApiResponse(
+      res,
+      200,
+      { messages, openMessages: conversation.openMessages },
+      "Message found"
+    );
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -101,7 +124,7 @@ export const getMessage = async (req, res) => {
 
 export const aboutMe = async (req, res) => {
   try {
-    console.log(req.user._id.toString(), "req.user._id.toString()");
+    // console.log(req.user._id.toString(), "req.user._id.toString()");
     const user = await User.findById(req.user._id).select("-password");
 
     if (!user) {

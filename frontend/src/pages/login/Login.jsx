@@ -1,10 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Input from "../components/Input";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const { loading, login } = useLogin();
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    console.log(`from frontend:`, { username, password });
+    const loginOrNot = await login({ username, password });
+    console.log(`loginOrNOt: `, loginOrNot);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -16,7 +27,7 @@ const Login = () => {
           </span>
         </h1>
 
-        <form action="">
+        <form onSubmit={handleOnSubmit} method="POST">
           <Input
             labelName="Username"
             type="text"
@@ -31,17 +42,15 @@ const Login = () => {
             onChangeFunction={(e) => setPassword(e.target.value)}
           />
 
-          {/* <Link
+          <Link
             to="/signup"
-            className="text-sm  hover:underline hover:text-blue-600 mt-2 inline-block"
+            className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block text-white visited:bg-black hover:font-semibold"
           >
             {"Don't"} have an account?
-          </Link> */}
+          </Link>
 
           <div>
-            <button className="btn btn-block btn-sm mt-4 bg-blue-600 hover:bg-blue-600 h-8">
-              Login
-            </button>
+            <Button loading={loading} content={"Login"} />
           </div>
         </form>
       </div>

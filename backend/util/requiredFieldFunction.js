@@ -1,4 +1,4 @@
-export const requiredFieldFunnction = (requiredFieldArray, res) => {
+const requiredFieldFunnction = (requiredFieldArray, res) => {
   let requiredField;
   if (
     requiredFieldArray.some((field) => {
@@ -16,3 +16,5 @@ export const requiredFieldFunnction = (requiredFieldArray, res) => {
     });
   }
 };
+
+export default requiredFieldFunnction;

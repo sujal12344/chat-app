@@ -1,17 +1,15 @@
-import dotenv, { config } from "dotenv";
 import jwt from "jsonwebtoken";
-import { User } from "../model/user.model.js";
+import User from "../model/user.model.js";
+import dotenv, { config } from "dotenv";
 config(dotenv);
 
 const protectRoute = async (req, res, next) => {
   try {
-
-    const token = req.cookies.jwt;
-
+    // const token = req.cookies?.jwt || req.headers?.authorization?.split(' ')[1];
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjcwM2RmN2RlNzNlZWE3ZjViMWJiM2UiLCJpYXQiOjE3MTg2OTU0MTIsImV4cCI6MTcxOTk5MTQxMn0.cw7bJZweQbnFOp8gqif8KQYVnp_EOEoftzNmDxt23q8"; //raj
     if (!token) {
       return res.status(401).json({
-        status: "error",
-        message: "Unauthorized, token not found",
+        message: "Unauthorized - No Token Provided",
       });
     }
 
@@ -19,16 +17,14 @@ const protectRoute = async (req, res, next) => {
 
     if (!decoded) {
       return res.status(401).json({
-        status: "error",
         message: "Unauthorized, token not valid",
       });
     }
 
-    const user = await User.findById(decoded.userId).select("-password");
+    const user = await User.findById(decoded._id).select("-password");
 
     if (!user) {
       return res.status(401).json({
-        status: "error",
         message: "Unauthorized, user not found",
       });
     }
@@ -36,10 +32,9 @@ const protectRoute = async (req, res, next) => {
     req.user = user;
 
     next();
-    
+
   } catch (error) {
     res.status(500).json({
-      status: "error",
       message: `Error while protecting route due to: ${error.message}`,
     });
   }
