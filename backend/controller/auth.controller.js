@@ -18,6 +18,11 @@ const signup = async (req, res) => {
     const { fullName, username, password, confirmPassword, gender } = req.body;
 
     let { DOB } = req.body;
+    let profilePic;
+    const primaryAvatarURL = `https://avatar.iran.liara.run/public/${
+      gender === "male" ? "boy" : "girl"
+    }?username=${username}`;
+    const secondaryAvatarURL = `https://api.dicebear.com/9.x/adventurer/svg?seed=${username}`;
     requiredFieldFunnction(
       [
         { name: "fullName", value: fullName },
@@ -56,9 +61,9 @@ const signup = async (req, res) => {
         .json({ message: `User already exists with username: '${username}'` });
     }
 
-    const profilePic = `https://avatar.iran.liara.run/public/${
-      gender === "male" ? "boy" : "girl"
-    }?username=${username}`;
+    const primaryAvatarURLRes = await fetch(primaryAvatarURL);
+    if (primaryAvatarURLRes.status === 200) profilePic = primaryAvatarURL;
+    else profilePic = secondaryAvatarURL;
 
     const salt = await bcryptjs.genSalt(10);
     const encriptedPassword = await bcryptjs.hash(password, salt);
@@ -128,7 +133,11 @@ const login = async (req, res) => {
     res
       .cookie("jwt", token, options)
       .status(200)
-      .json({ message: `'${username}' logged in successfully`, data: loggedInUser, jwt: token});
+      .json({
+        message: `'${username}' logged in successfully`,
+        data: loggedInUser,
+        jwt: token,
+      });
     // ApiResponse(res, 200, loggedInUser, "User logged in successfully");
   } catch (error) {
     return res
