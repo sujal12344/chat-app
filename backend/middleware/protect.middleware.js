@@ -6,7 +6,7 @@ config(dotenv);
 const protectRoute = async (req, res, next) => {
   try {
     // const token = req.cookies?.jwt || req.headers?.authorization?.split(' ')[1];
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjcwM2RmN2RlNzNlZWE3ZjViMWJiM2UiLCJpYXQiOjE3MTg2OTU0MTIsImV4cCI6MTcxOTk5MTQxMn0.cw7bJZweQbnFOp8gqif8KQYVnp_EOEoftzNmDxt23q8"; //raj
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjcwM2U1ZjYwMmQ5MTk4YmNlNTdhY2QiLCJpYXQiOjE3MTg3MDE0MDIsImV4cCI6MTcxOTk5NzQwMn0.aoHXFTpRu44GQAGI2VGtPSGCbBAsFtZUNgX2oUn85Uo"; //sujal
     if (!token) {
       return res.status(401).json({
         message: "Unauthorized - No Token Provided",

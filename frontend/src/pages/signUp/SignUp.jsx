@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import GenderCheckBox from "./GenderCheckBox";
-import Input from "../../components/Input.jsx";
+import Input from "../../components/ui/Input.jsx";
 import useSignUp from "../../hooks/useSignUp.js";
-import Button from "../../components/Button.jsx";
+import Button from "../../components/ui/Button.jsx";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
@@ -75,7 +75,7 @@ const SignUp = () => {
               setInputs({ ...inputs, DOB: e.target.value })
             }
           />
-          
+
           <Link
             to={"/login"}
             className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block text-white visited:bg-black hover:font-semibold"

@@ -5,13 +5,6 @@ import User from "../model/user.model.js";
 
 export const sendMessage = async (req, res) => {
   try {
-    console.log(
-      `server side`,
-      req.body,
-      req.params,
-      req.user?._id,
-      "req.user._id"
-    );
     const senderId = req.user?._id;
     console.log(senderId, "senderId");
     const { id: receiverId } = req.params;
@@ -77,14 +70,7 @@ export const sendMessage = async (req, res) => {
 
 export const getMessage = async (req, res) => {
   try {
-    //userTOChatId is the id of the user to chat with other people that is the receiver
     const { id: userToChatIdWithOthers } = req.params;
-    console.log(
-      userToChatIdWithOthers,
-      "userToChatIdWithOthers",
-      req.user?._id,
-      "req.user._id"
-    );
     const senderId = req.user?._id;
     const userToChatIdWithOthersUser = await User.findById(
       userToChatIdWithOthers
@@ -111,12 +97,13 @@ export const getMessage = async (req, res) => {
       return res.status(404).json({ message: "No message found" });
     }
 
-    ApiResponse(
-      res,
-      200,
-      { messages, openMessages: conversation.openMessages },
-      "Message found"
-    );
+    // ApiResponse(
+    //   res,
+    //   200,
+    //   { messages, openMessages: conversation.openMessages },
+    //   "Message found"
+    // );
+    res.json({messages})
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

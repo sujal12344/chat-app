@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import Input from "../../components/ui/Input";
+import Button from "../../components/ui/Button";
 import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
@@ -13,6 +13,7 @@ const Login = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(`from frontend:`, { username, password });
+    console.log(`login: `, login);
     const loginOrNot = await login({ username, password });
     console.log(`loginOrNOt: `, loginOrNot);
   };
