@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { sendMessage, getMessage, aboutMe,} from "../controller/message.controller.js";
+import {
+  sendMessage,
+  getMessage,
+  aboutMe,
+} from "../controller/message.controller.js";
 import protectRoute from "../middleware/protect.middleware.js";
 
-const messageRouter = Router({ strict: false });
+const messageRouter = Router();
 
 messageRouter.get("/:id", protectRoute, getMessage);
 
