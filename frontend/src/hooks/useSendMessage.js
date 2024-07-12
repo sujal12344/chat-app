@@ -14,7 +14,7 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/messages/send/${selectedCon._id}`,
+        `http://localhost:8000/api/messages/send/${selectedCon._id}`,
         {
           method: "POST",
           headers: {
@@ -31,11 +31,12 @@ const useSendMessage = () => {
         return false;
       }
       if (res.status === 201) {
-        setMessages([...messages, data.newMessage]);
+        setMessages([...messages, data.data.newMessage]);
         return true;
       }
     } catch (error) {
-      toast.error(error.message);
+      console.log(error.message);
+      toast.error(error.message, { style: { width: "100%" } });
       return false;
     } finally {
       setLoading(false);

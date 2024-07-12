@@ -9,7 +9,7 @@ const options = {
   httpOnly: true,
   secure: false,
   maxAge: 15 * 24 * 60 * 60 * 1000,
-  // sameSite: "strict",
+  sameSite: "strict",
 };
 
 const signup = async (req, res) => {
@@ -82,7 +82,6 @@ const signup = async (req, res) => {
     }
 
     const token = await generateToken(user._id);
-    // console.log(token, "token");
 
     const createdUser = await User.findById(user._id).select("-password");
 
@@ -127,8 +126,6 @@ const login = async (req, res) => {
     const token = await generateToken(user._id);
     await loggedInUser.save({ validateBeforeSave: false });
 
-    console.log(token, "token");
-    res.jwt = token;
     req.user = loggedInUser;
     res
       .cookie("jwt", token, options)
@@ -142,7 +139,7 @@ const login = async (req, res) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ message: `Error while login due to: ${error.message}` });
+      .json({ message: `Error in login: ${error.message}` });
   }
 };
 

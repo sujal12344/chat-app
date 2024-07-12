@@ -10,10 +10,11 @@ const useLogout = () => {
   const logout = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/auth/logout`,
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/logout`,
         {
           method: "POST",
-          headers: {"Content-type": "application/json"},
+          headers: { "Content-type": "application/json" },
           credentials: "include",
         }
       );
@@ -35,9 +36,9 @@ const useLogout = () => {
         setAuthUser(null);
         return true;
       }
-
     } catch (error) {
-      toast.error(error, { style: { width: "100%" } });
+      console.log(error.message);
+      toast.error(error.message, { style: { width: "100%" } });
     } finally {
       setLoading(false);
     }

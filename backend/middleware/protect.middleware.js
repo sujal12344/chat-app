@@ -5,8 +5,9 @@ config(dotenv);
 
 const protectRoute = async (req, res, next) => {
   try {
-    // const token = req.cookies?.jwt || req.headers?.authorization?.split(' ')[1];
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjcwM2U1ZjYwMmQ5MTk4YmNlNTdhY2QiLCJpYXQiOjE3MTg3MDE0MDIsImV4cCI6MTcxOTk5NzQwMn0.aoHXFTpRu44GQAGI2VGtPSGCbBAsFtZUNgX2oUn85Uo"; //sujal
+    console.log("protectRoute: ", req.cookies?.jwt);
+    const token = req.cookies?.jwt;
+    console.log("token: ", token);
     if (!token) {
       return res.status(401).json({
         message: "Unauthorized - No Token Provided",
@@ -29,10 +30,10 @@ const protectRoute = async (req, res, next) => {
       });
     }
 
+    console.log("user: ", user);
     req.user = user;
 
     next();
-
   } catch (error) {
     res.status(500).json({
       message: `Error while protecting route due to: ${error.message}`,

@@ -6,14 +6,13 @@ import { connectDB } from "./db/connectDB.js";
 import messageRouter from "./route/message.route.js";
 import authRouter from "./route/auth.route.js";
 import userRouter from "./route/user.route.js";
+import { app, server } from "./socket/socket.js";
 
-config(dotenv);
-const app = express();
+dotenv.config();
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.set('strict routing', false);
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -25,11 +24,20 @@ app.use(cors({
   allowedHeaders: ['Authorization', 'Content-Type'],
 }));
 
+app.get("/", (req, res) => {
+  res.send(req.cookies);
+});
+
+
 app.use("/api/auth", authRouter);
 app.use("/api/messages", messageRouter);
-app.use("/api/users", userRouter);
+app.use("/api/users", (req,res,next) => {
+  console.log("middleware: ",req.cookies);
+  next();
+},userRouter);
 
-app.listen(PORT, async () => {
+
+server.listen(PORT, async () => {
   console.log(`Server is runs on http://localhost:${PORT}`);
   await connectDB();
 });

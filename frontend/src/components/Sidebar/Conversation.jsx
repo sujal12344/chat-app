@@ -1,13 +1,16 @@
 import React from "react";
 import useConversation from "../../zustand/useConversation";
 import useGetMessageById from "../../hooks/useGetMessagesById";
+import { useSocketContext } from "../../context/SocketContext";
 
 const Conversation = ({ conversation, emoji }) => {
   const { _id, username, profilePic } = conversation;
-  const { selectedCon, setSelectedCon } = useConversation();
 
+  const { selectedCon, setSelectedCon } = useConversation();
   const isSelected = selectedCon?._id === _id;
-  // isSelected ? useGetMessageById(_id) : console.log(`No conversation selected`)
+
+  const { onlineUsers } = useSocketContext()
+  const isOnline = onlineUsers.includes(conversation._id);
 
   return (
     <>
@@ -17,8 +20,8 @@ const Conversation = ({ conversation, emoji }) => {
           rounded p-2 py-1 cursor-pointer`}
         onClick={() => setSelectedCon(conversation)}
       >
-        <div className="avatar online">
-          <div className="w-12 rounded-full">
+        <div className={`avatar ${isOnline && `online`}`}>
+          <div className="w-12 rounded-full text-center">
             <img src={profilePic} alt={`${username} avatar`} />
           </div>
         </div>

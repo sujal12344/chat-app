@@ -23,7 +23,7 @@ const useLogin = () => {
             "Content-type": "application/json",
             Authorization: `Bearer ${authUser?.jwt}`,
           },
-          credentials: "include",
+          credentials: 'include',
           body: JSON.stringify({ username, password }),
         }
       );
@@ -36,15 +36,13 @@ const useLogin = () => {
       }
       if (res.status === 200) {
         toast.success(data.message);
-        localStorage.setItem("chat-user", JSON.stringify(data));
-        // document.cookie = `jwt=${data.jwt} sameSite=none httpOnly=true secure=true;`; //ye kisi kaam ka nahi rah gaya
-        toast.success(data.jwt);
-        setAuthUser(data);
-        console.log(`authUser: `, authUser);
+        localStorage.setItem("chat-user", JSON.stringify(data.data));
+        setAuthUser(data.data);
         return true;
       }
     } catch (error) {
-      toast.error(error, { style: { width: "100%" } });
+      console.log(error.message);
+      toast.error(error.message, { style: { width: "100%" } })
       return false;
     } finally {
       setLoading(false);

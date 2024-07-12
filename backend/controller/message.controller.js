@@ -6,7 +6,6 @@ import User from "../model/user.model.js";
 export const sendMessage = async (req, res) => {
   try {
     const senderId = req.user?._id;
-    console.log(senderId, "senderId");
     const { id: receiverId } = req.params;
     const { message } = req.body;
 
@@ -111,7 +110,6 @@ export const getMessage = async (req, res) => {
 
 export const aboutMe = async (req, res) => {
   try {
-    // console.log(req.user._id.toString(), "req.user._id.toString()");
     const user = await User.findById(req.user._id).select("-password");
 
     if (!user) {

@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
-import Sidebar from "./components/Sidebar/Sidebar.jsx";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext.jsx";
 

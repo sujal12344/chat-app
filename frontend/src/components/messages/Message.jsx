@@ -1,42 +1,40 @@
 import React from "react";
+import useConversation from "../../zustand/useConversation";
+import { useAuthContext } from "../../context/AuthContext";
 
-const Message = () => {
+const Message = ({ message }) => {
+  const { authUser } = useAuthContext();
+  const { selectedCon } = useConversation();
+  const fromMe = message.senderId === authUser._id;
+  const chatClassName = fromMe ? "chat-end" : "chat-start";
+  const profilePic = fromMe ? authUser.profilePic : selectedCon?.profilePic;
+  const bubbleBgColor = fromMe ? "bg-sky-500" : "bg-sky-950";
+  let dateFromDB = message.createdAt;
+  let date = new Date(dateFromDB);
+
+  let formattedTime = date.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+    day: "numeric",
+    month: "short",
+  });
+
   return (
     <>
-      <div className={`chat chat-start`}>
+      <div className={`chat ${chatClassName}`}>
         <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS chat bubble component"
-              src="../../../../bg.png"
-            />
+          <div className="w-10 rounded-full text-center">
+            <img alt="picture" src={profilePic} />
           </div>
         </div>
         <div
-          className={`chat-bubble text-white $/{bubbleBgColor} $/{shakeClass} pb-2 bg-sky-950`}
+          className={`chat-bubble text-white ${bubbleBgColor} $/{shakeClass} pb-2`}
         >
-          messages
+          {message.message}
         </div>
         <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">
-          time
-        </div>
-      </div>
-      <div className={`chat chat-end`}>
-        <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS chat bubble component"
-              src="../../../../bg.png"
-            />
-          </div>
-        </div>
-        <div
-          className={`chat-bubble text-white $/{bubbleBgColor} $/{shakeClass} pb-2 bg-sky-500`}
-        >
-          messages
-        </div>
-        <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">
-          time
+          {formattedTime}
         </div>
       </div>
     </>
