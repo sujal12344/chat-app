@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Conversation from "./Conversation.jsx";
 import { getRandomEmoji } from "../../util/emojis.js";
 

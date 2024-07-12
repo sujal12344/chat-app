@@ -30,14 +30,6 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/messages", messageRouter);
 app.use("/api/users", userRouter);
-// app.use(
-//   "/api/users",
-//   (req, res, next) => {
-//     console.log("middleware: ", req.cookies);
-//     next();
-//   },
-//   userRouter
-// );
 
 server.listen(PORT, async () => {
   console.log(`Server is runs on http://localhost:${PORT}`);

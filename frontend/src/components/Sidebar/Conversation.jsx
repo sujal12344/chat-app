@@ -1,6 +1,5 @@
 import React from "react";
 import useConversation from "../../zustand/useConversation";
-import useGetMessageById from "../../hooks/useGetMessagesById";
 import { useSocketContext } from "../../context/SocketContext";
 
 const Conversation = ({ conversation, emoji }) => {
@@ -9,7 +8,7 @@ const Conversation = ({ conversation, emoji }) => {
   const { selectedCon, setSelectedCon } = useConversation();
   const isSelected = selectedCon?._id === _id;
 
-  const { onlineUsers } = useSocketContext()
+  const { onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(conversation._id);
 
   return (

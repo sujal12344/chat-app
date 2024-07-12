@@ -5,15 +5,10 @@ config(dotenv);
 
 const protectRoute = async (req, res, next) => {
   try {
-    console.log("req.cookie: ", req.cookies);
     const token = req.cookies?.jwt;
-    // const token =
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjcwM2U1ZjYwMmQ5MTk4YmNlNTdhY2QiLCJpYXQiOjE3MjA3OTM0NTAsImV4cCI6MTcyMjA4OTQ1MH0.a0OlxJ31aj58MudATQC4KzL7gygOzQq-IF26Woc-6hI";
-    // const token = req.cookies?.jwt;
-    console.log("token: ", token);
     if (!token) {
       return res.status(401).json({
-        message: "Unauthorized - No Token Provided",
+        message: "You don't have token, please login again!",
       });
     }
 
@@ -22,7 +17,7 @@ const protectRoute = async (req, res, next) => {
     console.log("decoded: ", decoded);
     if (!decoded) {
       return res.status(401).json({
-        message: "Unauthorized, token not valid",
+        message: "Unauthorized, your tokrn is invalid",
       });
     }
 
@@ -34,7 +29,6 @@ const protectRoute = async (req, res, next) => {
       });
     }
 
-    console.log("user: ", user);
     req.user = user;
 
     next();

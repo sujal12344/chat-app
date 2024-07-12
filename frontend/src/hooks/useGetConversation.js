@@ -12,11 +12,9 @@ const useGetConversation = () => {
       setLoading(true);
       try {
         const res = await fetch(`http://localhost:8000/api/users`, {
-          // Accept: "application/json",
-          // getSetCookie: "true",
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          credentials: true,
+          credentials: "include",
         });
         const result = await JSON.parse(await res.text());
         console.log(result);
