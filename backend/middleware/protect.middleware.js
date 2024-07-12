@@ -5,10 +5,11 @@ config(dotenv);
 
 const protectRoute = async (req, res, next) => {
   try {
-    console.log("protectRoute: ", req.cookies?.jwt);
+    console.log("req.cookie: ", req.cookies);
+    const token = req.cookies?.jwt;
+    // const token =
+    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjcwM2U1ZjYwMmQ5MTk4YmNlNTdhY2QiLCJpYXQiOjE3MjA3OTM0NTAsImV4cCI6MTcyMjA4OTQ1MH0.a0OlxJ31aj58MudATQC4KzL7gygOzQq-IF26Woc-6hI";
     // const token = req.cookies?.jwt;
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjcwM2U1ZjYwMmQ5MTk4YmNlNTdhY2QiLCJpYXQiOjE3MjA3OTA2MDEsImV4cCI6MTcyMjA4NjYwMX0.jOrrITpG__ZNaKzh5rTay6JBL-JbrXXZVtcH4yS-ANg";
     console.log("token: ", token);
     if (!token) {
       return res.status(401).json({
@@ -18,6 +19,7 @@ const protectRoute = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    console.log("decoded: ", decoded);
     if (!decoded) {
       return res.status(401).json({
         message: "Unauthorized, token not valid",

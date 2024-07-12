@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
 import Conversation from "./Conversation.jsx";
-import useGetConversation from "../../hooks/useGetConversation.js";
 import { getRandomEmoji } from "../../util/emojis.js";
 
-const Conversations = ({ getConversations = null }) => {
-  const { loading, conversations } = useGetConversation();
-
-  if (getConversations) getConversations(conversations); //pass to its parent component
-
+const Conversations = ({ conversations, loading }) => {
   return (
     <div className="py-2 flex flex-col overflow-auto">
       {conversations.map((conversation) => (
