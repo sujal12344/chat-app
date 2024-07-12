@@ -16,7 +16,14 @@ const useGetMessageById = () => {
 
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/api/messages/${selectedCon._id}`
+          `${import.meta.env.VITE_SERVER_URL}/api/messages/${selectedCon._id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
         );
         let data = await res.json();
 

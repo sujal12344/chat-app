@@ -82,6 +82,7 @@ const signup = async (req, res) => {
     }
 
     const token = await generateToken(user._id);
+    console.log(token,'at token generation')
 
     const createdUser = await User.findById(user._id).select("-password");
 
