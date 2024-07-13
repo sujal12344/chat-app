@@ -10,7 +10,7 @@ const messageRouter = Router();
 
 messageRouter.get("/:id", protectRoute, getMessage);
 
-messageRouter.post("/send/:id", protectRoute, sendMessage);
+messageRouter.post("/send/:id?type=:type", protectRoute, sendMessage);
 
 messageRouter.get("/user/aboutMe", protectRoute, aboutMe);
 

@@ -7,6 +7,7 @@ export const sendMessage = async (req, res) => {
   try {
     const senderId = req.user?._id;
     const { id: receiverId } = req.params;
+    const { type } = req.query;
     const { message } = req.body;
 
     const sendUser = await User.findById(senderId).select("-password");
@@ -38,6 +39,10 @@ export const sendMessage = async (req, res) => {
       conversation = await Conversation.create({
         participants: [senderId, receiverId],
       });
+    }
+
+    if (type === "img") {
+      message = `<img src=${message} alt="image" />`;
     }
 
     const newMessage = await Message.create({
@@ -102,7 +107,7 @@ export const getMessage = async (req, res) => {
     //   { messages, openMessages: conversation.openMessages },
     //   "Message found"
     // );
-    res.json({messages})
+    res.json({ messages });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
