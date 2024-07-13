@@ -1,15 +1,14 @@
 import { BiLogOut } from "react-icons/bi";
 import useLogout from "../../hooks/useLogout";
-// import useLogout from "../../hooks/useLogout";
 
 const LogoutButton = () => {
   const { loading, logout } = useLogout();
 
-	const handleOnSubmit = async (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(`from frontend logout:`);
-		const logoutOrNOt = await logout()
-		console.log(`logoutOrNOt: `, logoutOrNOt);
+    const logoutOrNOt = await logout();
+    console.log(`logoutOrNOt: `, logoutOrNOt);
   };
   return (
     <div className="mt-auto">

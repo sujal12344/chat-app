@@ -1,37 +1,18 @@
 import React, { useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
-import useConversation from "../../zustand/useConversation.js";
-import useGetConversation from "../../hooks/useGetConversation.js";
 import toast from "react-hot-toast";
 
-const SearchInput = ({conversations = null}) => {
-  const { setSelectedCon } = useConversation();
-  // const { conversations } = useGetConversation();
-
+const SearchInput = ({ conversations = null, onSubmit }) => {
   const [search, setSearch] = useState("");
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    if (!search) {
-      toast.error("Please type something to search");
-      return false;
-    }
-
-    const matchingConversations = conversations?.filter((con) =>
-      con.username.toLowerCase().includes(search.toLowerCase()) ||
-      con.fullName.toLowerCase().includes(search.toLowerCase())
-    );
-    console.log(matchingConversations);
-
-    if (matchingConversations.length > 0) {
-      // according to search result, set the first conversation as selected, chats according to search
-      setSelectedCon(matchingConversations[0]);
-      setSearch("");
-    } else toast.error("No conversation found");
-  };
-
   return (
-    <form className="flex items-center gap-2" onSubmit={handleOnSubmit}>
+    <form
+      className="flex items-center gap-2"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(search);
+      }}
+    >
       <input
         type="text"
         placeholder="Search here"
