@@ -1,11 +1,11 @@
 import React from "react";
-import { getRandomEmoji } from "../../util/emojis";
 import useSendMessage from "../../hooks/useSendMessage";
 import { getRandomGif } from "../../util/gifs";
 
 const NewChatModal = () => {
   const { loading, sendMessage } = useSendMessage();
-  const Emoji = getRandomGif();
+  const GIF = <img src={getRandomGif()} alt="Emoji" className="scale-[0.8]" />;
+  const type = GIF.type;
 
   return (
     <div className="flex items-center justify-center h-full">
@@ -23,10 +23,10 @@ const NewChatModal = () => {
             <div
               className="cursor-alias"
               onClick={() => {
-                sendMessage(Emoji);
+                sendMessage(GIF.props.src, type);
               }}
             >
-              <img src={Emoji} alt="Emoji" className="scale-[0.8]" />
+              {GIF}
             </div>
           </div>
         </div>

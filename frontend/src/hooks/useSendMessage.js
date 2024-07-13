@@ -6,7 +6,7 @@ const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedCon } = useConversation();
 
-  const sendMessage = async (message) => {
+  const sendMessage = async (message, type = null) => {
     if (!message) {
       toast.error("Type some message, please");
       return false;
@@ -14,7 +14,8 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:8000/api/messages/send/${selectedCon._id}`,
+        `http://localhost:8000/api/messages/send/
+        ${selectedCon._id}?type=${type}`,
         {
           method: "POST",
           headers: {
