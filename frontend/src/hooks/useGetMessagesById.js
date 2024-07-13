@@ -28,13 +28,10 @@ const useGetMessageById = () => {
         let data = await res.json();
 
         if (res.status !== 200) {
-          toast.error(data.message);
+          setMessages([]);
           return false;
         }
         if (res.status === 200) {
-          // data.messages.forEach((msg, index) => {
-          //   setTimeout(() => toast.success(msg.message), index * 2000);
-          // });
           setMessages(data.messages);
           return true;
         }

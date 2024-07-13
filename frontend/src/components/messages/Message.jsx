@@ -12,7 +12,7 @@ const Message = ({ message }) => {
   let dateFromDB = message.createdAt;
   let date = new Date(dateFromDB);
 
-  let formattedTime = date.toLocaleTimeString("en-US", {
+  const formattedTime = date.toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "numeric",
     hour12: true,
