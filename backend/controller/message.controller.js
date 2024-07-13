@@ -41,14 +41,11 @@ export const sendMessage = async (req, res) => {
       });
     }
 
-    if (type === "img") {
-      message = `<img src=${message} alt="image" />`;
-    }
-
     const newMessage = await Message.create({
       senderId,
       receiverId,
       message,
+      type,
     });
 
     if (newMessage) {
