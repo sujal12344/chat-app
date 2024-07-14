@@ -6,7 +6,7 @@ const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
   const { messages, setMessages, selectedCon } = useConversation();
 
-  const sendMessage = async (message, type = null) => {
+  const sendMessage = async (message, type = "text") => {
     if (!message) {
       toast.error("Type some message, please");
       return false;
@@ -14,18 +14,19 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:8000/api/messages/send/
-        ${selectedCon._id}?type=${type}`,
+        `http://localhost:8000/api/messages/send/${selectedCon._id}?type=${type}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
           },
           body: JSON.stringify({ message }),
           credentials: "include",
         }
       );
 
+      console.log(`res`, res);
       const data = await res.json();
       console.log(`data`, data);
       if (res.status !== 201) {
@@ -33,6 +34,12 @@ const useSendMessage = () => {
         return false;
       }
       if (res.status === 201) {
+        console.log(`data.data.newMessage`, data.data.newMessage);
+        if (data.data.newMessage.type === "img") {
+          data.data.newMessage.message = (
+            <img src={data.data.newMessage.message} alt="image" />
+          );
+        }
         setMessages([...messages, data.data.newMessage]);
         return true;
       }

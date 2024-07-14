@@ -3,7 +3,7 @@ import useGetMessageById from "../../hooks/useGetMessagesById.js";
 import LoadingSkeleton from "../ui/LoadingSkeleton.jsx";
 import NewChatModal from "../ui/NewChatModal.jsx";
 import Message from "./Message.jsx";
-import useSendMessage from "../../hooks/useSendMessage.js";
+import useSendMessage from "../../hooks/useSendMessage.jsx";
 
 const Messages = () => {
   const { loading, messages } = useGetMessageById();
