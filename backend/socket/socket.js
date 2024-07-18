@@ -1,10 +1,11 @@
 import express from "express";
-// import {createServer} from 'https'
+const app = express();
+export { app };
+// import {createServer} from 'https' // for https i.e. secure server give cors error
 
 import { createServer } from "http";
 import { Server } from "socket.io";
 
-const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
@@ -13,24 +14,21 @@ const io = new Server(server, {
     credentials: true,
   },
 });
+export { io, server };
+
+export const getReceiverSocketId = (receiverId) => userSocketMap[receiverId];
 
 const userSocketMap = {}; // {userId: socketId}
 
 io.on("connection", (socket) => {
-  // console.log(`user connected with socketId: `, socket.id);
-
   const userId = socket.handshake.query.userId;
 
-  if (userId) userSocketMap[userId] = socket.id;
+  if (userId !== "undefined") userSocketMap[userId] = socket.id;
 
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
   socket.on("disconnect", () => {
-    // console.log(`disconnect from here: `, socket.id);
-    delete userSocketMap[userId]; // delete operator is used to remove properties from objects
+    delete userSocketMap[userId];
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
-
 });
-
-export { app, io, server };
