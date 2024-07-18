@@ -10,11 +10,12 @@ import userRouter from "./route/user.route.js";
 import { app, server } from "./socket/socket.js";
 
 // import { fileURLToPath } from "url";
-// // const __dirname = fileURLToPath(new URL(".", import.meta.url));
+// const __dirname = fileURLToPath(new URL  (".", import.meta.url));
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
 dotenv.config();
+const __dirname = path.resolve();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.urlencoded({ extended: true }));
@@ -36,12 +37,11 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/messages", messageRouter);
 app.use("/api/users", userRouter);
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-// app.use(express.static(path.join(__dirname, "/frontend/dist")));
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname,"frontend", "dist", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+});
 
 server.listen(PORT, async () => {
   console.log(`Server is runs on http://localhost:${PORT}`);
