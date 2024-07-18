@@ -16,14 +16,14 @@ const useLogin = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
+        `https://chat-app-fyek.onrender.com/api/auth/login`,
         {
           method: "POST",
           headers: {
             "Content-type": "application/json",
             Authorization: `Bearer ${authUser?.jwt}`,
           },
-          credentials: 'include',
+          credentials: "include",
           body: JSON.stringify({ username, password }),
         }
       );
@@ -42,7 +42,7 @@ const useLogin = () => {
       }
     } catch (error) {
       console.log(error.message);
-      toast.error(error.message, { style: { width: "100%" } })
+      toast.error(error.message, { style: { width: "100%" } });
       return false;
     } finally {
       setLoading(false);

@@ -29,7 +29,7 @@ const useSignUp = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/api/auth/signup`,
+        `https://chat-app-fyek.onrender.com/api/auth/signup`,
         {
           method: "POST",
           headers: { "Content-type": "application/json" },

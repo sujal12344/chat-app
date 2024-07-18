@@ -11,7 +11,7 @@ const useGetConversation = () => {
     const getConversation = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:8000/api/users`, {
+        const res = await fetch(`https://chat-app-fyek.onrender.com/api/users`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

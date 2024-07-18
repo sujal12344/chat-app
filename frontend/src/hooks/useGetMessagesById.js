@@ -16,7 +16,7 @@ const useGetMessageById = () => {
 
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/api/messages/${selectedCon._id}`,
+          `https://chat-app-fyek.onrender.com/api/messages/${selectedCon._id}`,
           {
             method: "GET",
             headers: {

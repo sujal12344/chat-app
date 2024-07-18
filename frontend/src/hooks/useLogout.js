@@ -11,7 +11,7 @@ const useLogout = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/api/auth/logout`,
+        `https://chat-app-fyek.onrender.com/api/auth/logout`,
         {
           method: "POST",
           headers: { "Content-type": "application/json" },
