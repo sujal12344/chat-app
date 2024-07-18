@@ -11,6 +11,7 @@ const Message = ({ message }) => {
   const bubbleBgColor = fromMe ? "bg-sky-500" : "bg-sky-950";
   let dateFromDB = message.createdAt;
   let date = new Date(dateFromDB);
+  const shakeClass = message.shouldShake ? "shake" : "";
 
   const formattedTime = date.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -32,7 +33,7 @@ const Message = ({ message }) => {
           className={` ${
             message?.type !== "text"
               ? `h-32 w-32`
-              : `chat-bubble text-white ${bubbleBgColor} $/{shakeClass} pb-2`
+              : `chat-bubble text-white ${bubbleBgColor} ${shakeClass} pb-2`
           }`}
         >
           {message.message}
