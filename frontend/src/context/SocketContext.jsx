@@ -5,8 +5,8 @@ import io from "socket.io-client";
 
 export const SocketContext = createContext();
 export const useSocketContext = () => {
-  return useContext(SocketContext)
-}
+  return useContext(SocketContext);
+};
 
 export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
@@ -16,29 +16,18 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     if (authUser) {
       const socket = io("http://localhost:8000", {
-        withCredentials: true,
         query: { userId: authUser._id },
       });
       setSocket(socket);
 
-      socket.on("getOnlineUsers", (users) => {
-        console.log(users);
-        console.log(onlineUsers);
-        setOnlineUsers(users);
-        console.log(onlineUsers);
-      });
+      socket.on("getOnlineUsers", (users) => setOnlineUsers(users));
 
       return () => {
         socket.close();
       };
-      //return socket.close()
-      //return socket.close
-    } else {
-      //else if
-      if (socket) {
-        socket.close();
-        setSocket(null);
-      }
+    } else if (socket) {
+      socket.close(); // if user is not authenticated, then if any connection then it close it
+      setSocket(null);
     }
   }, [authUser]);
 

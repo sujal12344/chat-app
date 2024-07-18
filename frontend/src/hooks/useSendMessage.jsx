@@ -26,15 +26,12 @@ const useSendMessage = () => {
         }
       );
 
-      console.log(`res`, res);
       const data = await res.json();
-      console.log(`data`, data);
       if (res.status !== 201) {
         toast.error(data.message);
         return false;
       }
       if (res.status === 201) {
-        console.log(`data.data.newMessage`, data.data.newMessage);
         if (data.data.newMessage.type === "img") {
           data.data.newMessage.message = (
             <img src={data.data.newMessage.message} alt="image" />

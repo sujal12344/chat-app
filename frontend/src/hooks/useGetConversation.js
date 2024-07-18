@@ -17,7 +17,6 @@ const useGetConversation = () => {
           credentials: "include",
         });
         const result = await JSON.parse(await res.text());
-        console.log(result);
         if (res.status === 200) {
           toast.success(result.message);
           loggedInUser = result.data.loggedInUser;
