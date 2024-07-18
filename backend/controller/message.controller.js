@@ -2,6 +2,7 @@ import ApiResponse from "../util/ApiResponse.js";
 import Conversation from "../model/conversation.model.js";
 import Message from "../model/message.model.js";
 import User from "../model/user.model.js";
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
   try {
@@ -54,6 +55,12 @@ export const sendMessage = async (req, res) => {
         `${sendUser.username}:  ${message}  :${receiveUser.username}`
       );
       conversation = await conversation.save({ validateBeforeSave: false });
+    }
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      // io.to(<socketId>).emit("eventName", data) used to send specific client
+      io.to(receiverSocketId).emit("newMessage", newMessage);
     }
 
     ApiResponse(
