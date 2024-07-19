@@ -15,18 +15,15 @@ const useLogin = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(
-        `https://chat-app-fyek.onrender.com/api/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${authUser?.jwt}`,
-          },
-          credentials: "include",
-          body: JSON.stringify({ username, password }),
-        }
-      );
+      const res = await fetch(`http://localhost:8000/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${authUser?.jwt}`,
+        },
+        credentials: "include",
+        body: JSON.stringify({ username, password }),
+      });
 
       let data = await res.json();
       console.log(`from the backend data: `, data);

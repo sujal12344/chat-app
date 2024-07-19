@@ -10,14 +10,11 @@ const useLogout = () => {
   const logout = async () => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `https://chat-app-fyek.onrender.com/api/auth/logout`,
-        {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`http://localhost:8000/api/auth/logout`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        credentials: "include",
+      });
 
       let data = await res.json();
       console.log(`logout from the backend data: `, data);

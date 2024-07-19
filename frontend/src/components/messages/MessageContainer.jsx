@@ -1,5 +1,5 @@
 import Messages from "./Messages.jsx";
-import MessageInput from "./MessageInput";
+import MessageInput from "./MessageInput.jsx";
 import { HiOutlineChatAlt2 } from "react-icons/hi";
 import useConversation from "../../zustand/useConversation.js";
 import { useEffect } from "react";

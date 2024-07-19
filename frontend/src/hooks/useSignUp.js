@@ -28,22 +28,19 @@ const useSignUp = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(
-        `https://chat-app-fyek.onrender.com/api/auth/signup`,
-        {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            fullName,
-            username,
-            password,
-            confirmPassword,
-            gender,
-            DOB,
-          }),
-        }
-      );
+      const res = await fetch(`http://localhost:8000/api/auth/signup`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          fullName,
+          username,
+          password,
+          confirmPassword,
+          gender,
+          DOB,
+        }),
+      });
 
       const data = await res.json();
       if (res.status === 400) {
