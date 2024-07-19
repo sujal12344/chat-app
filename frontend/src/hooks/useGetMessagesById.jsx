@@ -32,7 +32,29 @@ const useGetMessageById = () => {
           return false;
         }
         if (res.status === 200) {
-          setMessages(data.messages);
+          const transformedMessages = data.messages.map((message) => {
+            switch (message.type) {
+              case "img":
+                message.message = <img src={message.message} alt="image" />;
+                return message;
+              case "video":
+                message.message = <video src={message.message} controls />;
+                return message;
+              case "audio":
+                message.message = <audio src={message.message} controls />;
+                return message;
+              case "file":
+                message.message = (
+                  <a href={message.message} download>
+                    Download File
+                  </a>
+                );
+                return message;
+              default:
+                return message;
+            }
+          });
+          setMessages(transformedMessages);
           return true;
         }
       } catch (error) {
