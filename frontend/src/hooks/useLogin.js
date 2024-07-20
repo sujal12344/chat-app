@@ -16,7 +16,7 @@ const useLogin = () => {
 
     try {
       const res = await fetch(
-        `https://chat-app-fyek.onrender.com/api/auth/login`,
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {
