@@ -4,6 +4,7 @@ import bcryptjs from "bcryptjs";
 import generateToken from "../util/generateToken.js";
 import ApiResponse from "../util/ApiResponse.js";
 import isStrongPassword from "../util/isStrongPassword.js";
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 const options = {
   httpOnly: true,
@@ -86,6 +87,11 @@ const signup = async (req, res) => {
     const createdUser = await User.findById(user._id).select("-password");
 
     req.user = createdUser;
+
+    const createdUserSocketId = getReceiverSocketId(createdUser._id);
+
+    io.except(createdUserSocketId).emit("newUser", createdUser);
+
     // ApiResponse(res, 201, createdUser, "User created successfully");
     res
       .cookie("jwt", token, options)
@@ -154,4 +160,22 @@ const logout = async (req, res) => {
   }
 };
 
-export { signup, login, logout };
+const deleteAccount = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await User.findByIdAndDelete(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    ApiResponse(res, 200, null, "User deleted successfully");
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Error in delete account: ${error.message}` });
+  }
+};
+
+export { signup, login, logout, deleteAccount };

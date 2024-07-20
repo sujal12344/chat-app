@@ -94,7 +94,7 @@ export const getMessage = async (req, res) => {
     }).populate("messages");
 
     if (!conversation) {
-      return res.status(404).json({
+      return res.status(201).json({
         message: `${req.user.username}, No conversation found from you to ${userToChatIdWithOthersUser.username}`,
       });
     }
@@ -105,13 +105,7 @@ export const getMessage = async (req, res) => {
       return res.status(404).json({ message: "No message found" });
     }
 
-    // ApiResponse(
-    //   res,
-    //   200,
-    //   { messages, openMessages: conversation.openMessages },
-    //   "Message found"
-    // );
-    res.json({ messages });
+    res.status(200).json({ messages });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
