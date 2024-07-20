@@ -11,7 +11,7 @@ const useLogout = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://chat-app-fyek.onrender.com/api/auth/logout`,
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/logout`,
         {
           method: "POST",
           headers: { "Content-type": "application/json" },
@@ -20,21 +20,17 @@ const useLogout = () => {
       );
 
       let data = await res.json();
+      const { message } = data;
       console.log(`logout from the backend data: `, data);
-
-      if (res.status === 500) {
-        toast.error(data.message);
-        return false;
-      }
 
       if (res.status === 200) {
         localStorage.removeItem("chat-user");
-        // document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        toast.success(data.message);
-        // window.location.reload(); //isse page refresh ho jayega; jo ek achha UX nahi hai
-        // window.location.replace('login');  //isse page '/login' pe redirect ho jayega
+        toast.success(message);
         setAuthUser(null);
         return true;
+      } else {
+        toast.error(message);
+        return false;
       }
     } catch (error) {
       console.log(error.message);

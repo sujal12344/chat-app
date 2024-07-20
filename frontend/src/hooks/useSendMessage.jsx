@@ -14,7 +14,9 @@ const useSendMessage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://chat-app-fyek.onrender.com/api/messages/send/${selectedCon._id}?type=${type}`,
+        `${import.meta.env.VITE_SERVER_URL}/api/messages/send/${
+          selectedCon._id
+        }?type=${type}`,
         {
           method: "POST",
           headers: {

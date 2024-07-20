@@ -29,16 +29,16 @@ const useLogin = () => {
       );
 
       let data = await res.json();
+      const { message, loggedInUser } = data;
       console.log(`from the backend data: `, data);
-      if (res.status === 404 || res.status === 401) {
-        toast.error(data.message);
-        return false;
-      }
       if (res.status === 200) {
-        toast.success(data.message);
-        localStorage.setItem("chat-user", JSON.stringify(data.data));
-        setAuthUser(data.data);
+        toast.success(message);
+        localStorage.setItem("chat-user", JSON.stringify(loggedInUser));
+        setAuthUser(loggedInUser);
         return true;
+      } else {
+        toast.error(message);
+        return false;
       }
     } catch (error) {
       console.log(error.message);

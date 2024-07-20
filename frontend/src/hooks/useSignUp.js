@@ -29,7 +29,7 @@ const useSignUp = () => {
 
     try {
       const res = await fetch(
-        `https://chat-app-fyek.onrender.com/api/auth/signup`,
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/signup`,
         {
           method: "POST",
           headers: { "Content-type": "application/json" },
@@ -46,16 +46,18 @@ const useSignUp = () => {
       );
 
       const data = await res.json();
-      if (res.status === 400) {
-        toast.error(data.message, { style: { width: "100%" } });
-      }
+      const { createdUser, message } = data;
+
       if (res.status === 201) {
         toast.success(`You are successfully signed up as '${username}'`, {
           style: { width: "100%" },
         });
+        localStorage.setItem("chat-user", JSON.stringify(createdUser));
+        setAuthUser(createdUser);
+      } else {
+        toast.error(message, { style: { width: "100%" } });
+        return false;
       }
-      localStorage.setItem("chat-user", JSON.stringify(data));
-      setAuthUser(data);
     } catch (error) {
       console.log(error.message);
       toast.error(error.message, { style: { width: "100%" } });
