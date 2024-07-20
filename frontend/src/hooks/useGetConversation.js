@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import useConversation from "../zustand/useConversation";
 
 const useGetConversation = () => {
   const [loading, setLoading] = useState(false);
-  const [conversations, setConversations] = useState([]);
-  let loggedInUser;
-  let filteredUser;
+  const { conversations, setConversations } = useConversation();
 
   useEffect(() => {
     const getConversation = async () => {
@@ -21,9 +20,9 @@ const useGetConversation = () => {
         );
         const result = await JSON.parse(await res.text());
         if (res.status === 200) {
-          toast.success(result.message);
-          loggedInUser = result.data.loggedInUser;
-          filteredUser = result.data.filteredUser;
+          const { data, message } = result;
+          const { filteredUser } = data;
+          toast.success(message);
           setConversations(filteredUser);
           return true;
         } else {
@@ -38,7 +37,7 @@ const useGetConversation = () => {
       }
     };
     getConversation();
-  }, [filteredUser]);
+  }, []);
   return { loading, conversations };
 };
 
