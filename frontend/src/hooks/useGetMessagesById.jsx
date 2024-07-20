@@ -26,13 +26,11 @@ const useGetMessageById = () => {
           }
         );
         let data = await res.json();
+        console.log(`data`, data);
 
-        if (res.status !== 200) {
-          setMessages([]);
-          return false;
-        }
         if (res.status === 200) {
-          const transformedMessages = data.messages.map((messageObject) => {
+          const { messages } = data;
+          const transformedMessages = messages.map((messageObject) => {
             switch (messageObject.type) {
               case "img":
                 messageObject.message = (
@@ -62,9 +60,11 @@ const useGetMessageById = () => {
                 return messageObject;
             }
           });
-          console.log(transformedMessages);
           setMessages(transformedMessages);
           return true;
+        } else {
+          setMessages([]);
+          return false;
         }
       } catch (error) {
         console.log(error.message);
@@ -76,6 +76,7 @@ const useGetMessageById = () => {
     };
     if (selectedCon?._id) getMessagesById();
   }, [selectedCon?._id, setMessages]);
+  console.log(`messages`, messages);
   return { loading, messages };
 };
 

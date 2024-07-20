@@ -4,6 +4,8 @@ import LogoutButton from "./LogoutButton.jsx";
 import useGetConversation from "../../hooks/useGetConversation.js";
 import { IoSearchSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
+import useListenUser from "../../hooks/useListenUser.js";
+import DeleteButton from "./DeleteButton.jsx";
 
 const Sidebar = () => {
   const { loading: searchLoading, conversations } = useGetConversation();
@@ -11,6 +13,8 @@ const Sidebar = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [matchConversations, setMatchConversations] = useState(conversations);
+
+  useListenUser();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -68,7 +72,10 @@ const Sidebar = () => {
           loading={loading}
         />
       )}
-      <LogoutButton />
+      <div className="flex justify-between items-center mt-auto">
+        <LogoutButton />
+        <DeleteButton />
+      </div>
     </div>
   );
 };
