@@ -16,7 +16,7 @@ const useGetMessageById = () => {
 
       try {
         const res = await fetch(
-          `https://chat-app-fyek.onrender.com/api/messages/${selectedCon._id}`,
+          `${import.meta.env.VITE_SERVER_URL}/api/messages/${selectedCon._id}`,
           {
             method: "GET",
             headers: {
@@ -32,28 +32,37 @@ const useGetMessageById = () => {
           return false;
         }
         if (res.status === 200) {
-          const transformedMessages = data.messages.map((message) => {
-            switch (message.type) {
+          const transformedMessages = data.messages.map((messageObject) => {
+            switch (messageObject.type) {
               case "img":
-                message.message = <img src={message.message} alt="image" />;
-                return message;
+                messageObject.message = (
+                  <img src={messageObject.message} alt="image" />
+                );
+                return messageObject;
               case "video":
-                message.message = <video src={message.message} controls />;
-                return message;
+                messageObject.message = (
+                  <video src={messageObject.message} controls />
+                );
+                return messageObject;
               case "audio":
-                message.message = <audio src={message.message} controls />;
-                return message;
+                messageObject.message = (
+                  <audio src={messageObject.message} controls />
+                );
+                return messageObject;
               case "file":
-                message.message = (
-                  <a href={message.message} download>
+                messageObject.message = (
+                  <a href={messageObject.message} download>
                     Download File
                   </a>
                 );
-                return message;
+                return messageObject;
+              case "text":
+                return messageObject;
               default:
-                return message;
+                return messageObject;
             }
           });
+          console.log(transformedMessages);
           setMessages(transformedMessages);
           return true;
         }

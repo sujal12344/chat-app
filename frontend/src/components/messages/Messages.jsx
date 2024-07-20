@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import useGetMessageById from "../../hooks/useGetMessagesById.js";
+import useGetMessageById from "../../hooks/useGetMessagesById.jsx";
 import LoadingSkeleton from "../ui/LoadingSkeleton.jsx";
 import NewChatModal from "../ui/NewChatModal.jsx";
 import Message from "./Message.jsx";

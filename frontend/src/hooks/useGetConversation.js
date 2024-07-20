@@ -11,11 +11,14 @@ const useGetConversation = () => {
     const getConversation = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`https://chat-app-fyek.onrender.com/api/users`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_SERVER_URL}/api/users`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        );
         const result = await JSON.parse(await res.text());
         if (res.status === 200) {
           toast.success(result.message);
