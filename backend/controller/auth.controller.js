@@ -132,8 +132,7 @@ const login = async (req, res) => {
       .status(200)
       .json({
         message: `'${username}' logged in successfully`,
-        data: loggedInUser,
-        jwt: token,
+        loggedInUser,
       });
     // ApiResponse(res, 200, loggedInUser, "User logged in successfully");
   } catch (error) {
