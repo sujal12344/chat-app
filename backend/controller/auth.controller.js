@@ -170,6 +170,9 @@ const deleteAccount = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    const deletedUserSocketId = getReceiverSocketId(user._id);
+    io.except(deletedUserSocketId).emit("deleteUser", user);
+
     ApiResponse(res, 200, null, "User deleted successfully");
   } catch (error) {
     return res
