@@ -3,7 +3,7 @@ import useGetMessageById from "../../hooks/useGetMessagesById.jsx";
 import LoadingSkeleton from "../ui/LoadingSkeleton.jsx";
 import NewChatModal from "../ui/NewChatModal.jsx";
 import Message from "./Message.jsx";
-import useListenMessages from "../../hooks/useListenMessages.js";
+import useListenMessages from "../../hooks/useListenMessages.jsx";
 
 const Messages = () => {
   const { loading, messages } = useGetMessageById();
