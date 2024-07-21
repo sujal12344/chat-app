@@ -76,7 +76,6 @@ const useGetMessageById = () => {
     };
     if (selectedCon?._id) getMessagesById();
   }, [selectedCon?._id, setMessages]);
-  console.log(`messages`, messages);
   return { loading, messages };
 };
 

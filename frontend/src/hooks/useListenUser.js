@@ -4,7 +4,8 @@ import useConversation from "../zustand/useConversation";
 
 const useListenUser = () => {
   const { socket } = useSocketContext();
-  const { conversations, setConversations } = useConversation();
+  const { conversations, setConversations, setSelectedCon, selectedCon } =
+    useConversation();
 
   useEffect(() => {
     socket?.on("newUser", (user) => {
@@ -15,9 +16,13 @@ const useListenUser = () => {
       setConversations(
         conversations.filter((conversation) => conversation._id !== user._id)
       );
-      console.log(
-        conversations.filter((conversation) => conversation._id !== user._id)
-      );
+      setSelectedCon((prev) => {
+        if (prev?._id === user._id) {
+          return null;
+        }
+        return prev;
+      });
+      console.log(`selectedCon`, selectedCon);
     });
 
     return () => {
@@ -28,9 +33,3 @@ const useListenUser = () => {
 };
 
 export default useListenUser;
-
-let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-let evenNumbers = numbers.filter((number) => number % 2 === 0);
-
-console.log(evenNumbers); // [2, 4, 6, 8, 10]

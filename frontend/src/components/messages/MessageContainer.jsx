@@ -20,7 +20,6 @@ const MessageContainer = () => {
         <NoChatSelected />
       ) : (
         <>
-          {/* Header */}
           <div className="bg-cyan-400 px-4 py-2 mb-2">
             <span className="label-text text-black font-normal">{"TO: "}</span>
             <span className="text-gray-900 font-bold">
