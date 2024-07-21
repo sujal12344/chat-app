@@ -30,10 +30,6 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.send(req.cookies);
-});
-
 app.use("/api/auth", authRouter);
 app.use("/api/messages", messageRouter);
 app.use("/api/users", userRouter);
