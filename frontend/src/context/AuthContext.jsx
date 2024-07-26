@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext();
@@ -6,13 +7,14 @@ export const useAuthContext = () => {
 };
 
 export const AuthContextProvider = ({ children }) => {
-
-  const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem("chat-user")) || null);
+  const { isAuthenticated, isLoading } = useAuth0();
+  const [authUser, setAuthUser] = useState(
+    JSON.parse(localStorage.getItem("chat-user")) || null
+  );
 
   return (
-    <AuthContext.Provider value={{ authUser, setAuthUser }}>
+    <AuthContext.Provider value={{ authUser, setAuthUser, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
