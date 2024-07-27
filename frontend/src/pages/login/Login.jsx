@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import useLogin from "../../hooks/useLogin";
+import LoginViaProviders from "./LoginViaProviders";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -53,6 +54,7 @@ const Login = () => {
             <Button loading={loading} content={"Login"} />
           </div>
         </form>
+        <LoginViaProviders />
       </div>
     </div>
   );
