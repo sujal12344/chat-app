@@ -4,6 +4,7 @@ import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import useLogin from "../../hooks/useLogin";
 import LoginViaProviders from "./LoginViaProviders";
+import Logout from "./LogoutViaProviders";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -55,6 +56,7 @@ const Login = () => {
           </div>
         </form>
         <LoginViaProviders />
+        <Logout />
       </div>
     </div>
   );
