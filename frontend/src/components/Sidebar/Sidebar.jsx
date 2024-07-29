@@ -13,6 +13,7 @@ const Sidebar = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [matchConversations, setMatchConversations] = useState(conversations);
+  const [view, setView] = useState("Chats");
 
   useListenUser();
 
@@ -67,10 +68,44 @@ const Sidebar = () => {
           <span className="loading loading-spinner loading-lg"></span>
         </div>
       ) : (
-        <Conversations
-          conversations={search ? matchConversations : conversations}
-          loading={loading}
-        />
+        <div className="">
+          <div role="tablist" className="tabs tabs-bordered font-bold pb-1">
+            <input
+              type="radio"
+              name="tabs"
+              role="tab"
+              className="tab text-lg"
+              aria-label="Chats"
+              defaultChecked
+              onClick={() => setView("Chats")}
+            />
+
+            <input
+              type="radio"
+              name="tabs"
+              role="tab"
+              className="tab text-lg"
+              aria-label="Groups"
+              onClick={() => setView("Groups")}
+            />
+          </div>
+          {view === "Chats" ? (
+            <Conversations
+              conversations={search ? matchConversations : conversations}
+              loading={loading}
+            />
+          ) : (
+            view === "Groups" && (
+              <div className="flex justify-center items-center bg-yell8ow-800 text-white">
+                {/* <Gruops
+                  conversations={search ? matchConversations : conversations}
+                  loading={loading}
+                /> */}
+                <span className="loading loading-spinner loading-lg"></span>
+              </div>
+            )
+          )}
+        </div>
       )}
       <div className="flex justify-between items-center mt-auto">
         <LogoutButton />
