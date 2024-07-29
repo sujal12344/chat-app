@@ -8,6 +8,7 @@ import messageRouter from "./route/message.route.js";
 import authRouter from "./route/auth.route.js";
 import userRouter from "./route/user.route.js";
 import { app, server } from "./socket/socket.js";
+import chatBotRouter from "./route/chatBot.js";
 
 // import { fileURLToPath } from "url";
 // const __dirname = fileURLToPath(new URL  (".", import.meta.url));
@@ -33,6 +34,7 @@ app.use(
 app.use("/api/auth", authRouter);
 app.use("/api/messages", messageRouter);
 app.use("/api/users", userRouter);
+app.use("/api/chatbot", chatBotRouter);
 app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
 app.get("*", (req, res) => {
