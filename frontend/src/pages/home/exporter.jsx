@@ -1,2 +1,2 @@
-import Sidebar from "../../components/sidebar/Sidebar.jsx";
+import Sidebar from "../../components/Sidebar/Sidebar.jsx";
 export { Sidebar };
