@@ -5,7 +5,7 @@ import useGetConversation from "../../hooks/useGetConversation.js";
 import { IoSearchSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
 import useListenUser from "../../hooks/useListenUser.js";
-import RadialMenu from "./RedialMenu.jsx";
+import DeleteButton from "./DeleteButton.jsx";
 
 const Sidebar = () => {
   const { loading: searchLoading, conversations } = useGetConversation();
@@ -96,7 +96,7 @@ const Sidebar = () => {
             />
           ) : (
             view === "Groups" && (
-              <div className="flex justify-center items-center bg-yell8ow-800 text-white">
+              <div className="flex justify-center items-center h-96 text-white">
                 {/* <Gruops
                   conversations={search ? matchConversations : conversations}
                   loading={loading}
@@ -109,7 +109,7 @@ const Sidebar = () => {
       )}
       <div className="flex justify-between items-center mt-auto">
         <LogoutButton />
-        <RadialMenu />
+        <DeleteButton />
       </div>
     </div>
   );

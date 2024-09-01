@@ -7,7 +7,7 @@ export const useAuthContext = () => {
 };
 
 export const AuthContextProvider = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const [authUser, setAuthUser] = useState(
     JSON.parse(localStorage.getItem("chat-user")) || null
   );

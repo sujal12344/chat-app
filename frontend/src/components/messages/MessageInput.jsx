@@ -3,13 +3,15 @@ import useSendMessage from "../../hooks/useSendMessage";
 import { useState } from "react";
 
 const MessageInput = () => {
-  const [message, setmessage] = useState("");
+  const [message, setMessage] = useState("");
+
   const { loading, sendMessage } = useSendMessage();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+
     const messageSendOrNot = await sendMessage(message);
-    setmessage("");
+    setMessage("");
     console.log("Message sent", messageSendOrNot);
   };
 
@@ -21,7 +23,7 @@ const MessageInput = () => {
           className="border text-sm rounded-lg block w-full p-2.5  bg-[#0e0e34] border-gray-600 text-[#f1f1f1]"
           placeholder="Send a message"
           value={message}
-          onChange={(e) => setmessage(e.target.value)}
+          onChange={(e) => setMessage(e.target.value)}
         />
         <button
           type="submit"
