@@ -63,4 +63,4 @@ To get a local copy up and running follow these simple steps.
     npm start
     ```
 
-6. Open your browser and navigate to `http://localhost:3000/`
+6. Open your browser and navigate to `http://localhost:5173/`
