@@ -1,6 +1,6 @@
 import React from "react";
 import MessageContainer from "../../components/messages/MessageContainer.jsx";
-import Sidebar from "../../components/sidebar/siderbar.jsx";
+import Sidebar from "../../components/sidebar/Sidebar.jsx"; // Corrected import path
 
 const Home = () => {
   return (
