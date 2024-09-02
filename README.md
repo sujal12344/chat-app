@@ -25,6 +25,11 @@ This project is a real-time chat application built using the MERN stack (MongoDB
   - Socket.io (real-time server)
   - JWT (JSON Web Tokens) for authentication
 
+## Image
+![image](https://github.com/user-attachments/assets/6870dcb3-42ed-41a8-9f03-e58ebbdb8a88)
+
+
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
