@@ -26,7 +26,7 @@ const DeleteButton = () => {
       {!loading ? (
         <>
           <MdDelete
-            className="w-6 h-6 text-white cursor-pointer"
+            className="w-6 h-6 text-white cursor-pointer rotate-180"
             onClick={handleOnClick}
           />
           <CustomModal

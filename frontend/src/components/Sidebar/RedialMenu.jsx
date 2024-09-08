@@ -3,7 +3,7 @@ import { TiThMenu } from "react-icons/ti";
 import { IoCloseSharp } from "react-icons/io5";
 import CreateGroup from "./CreateGroup";
 import DeleteButton from "./DeleteButton";
-import ChatBot from "./ChatBot";
+// import ChatBot from "./ChatBot";
 import JoinGroup from "./JoinGroup";
 import Profile from "./Profile";
 
@@ -15,7 +15,7 @@ const RadialMenu = () => {
     <Profile />,
     <JoinGroup />,
     <CreateGroup />,
-    <ChatBot />,
+    // <ChatBot />,
   ];
 
   const toggleMenu = () => {
@@ -47,7 +47,7 @@ const RadialMenu = () => {
                 style={{
                   transform: `rotate(${angle}deg) translate(85px)`,
                 }}
-                onClick={() => setIsOpen(false)}
+                // onClick={() => setIsOpen(false)}
               >
                 {option[i]}
               </button>

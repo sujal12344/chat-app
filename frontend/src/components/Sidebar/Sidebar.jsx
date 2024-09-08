@@ -5,7 +5,8 @@ import useGetConversation from "../../hooks/useGetConversation.js";
 import { IoSearchSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
 import useListenUser from "../../hooks/useListenUser.js";
-import DeleteButton from "./DeleteButton.jsx";
+import useGroupGloablState from "../../zustand/useGroupGlobalState.js";
+import RedialMenu from "./RedialMenu.jsx";
 
 const Sidebar = () => {
   const { loading: searchLoading, conversations } = useGetConversation();
@@ -109,7 +110,7 @@ const Sidebar = () => {
       )}
       <div className="flex justify-between items-center mt-auto">
         <LogoutButton />
-        <DeleteButton />
+        <RedialMenu />
       </div>
     </div>
   );

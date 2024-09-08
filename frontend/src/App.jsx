@@ -9,8 +9,8 @@ import Upload from "./pages/upload/Upload.jsx";
 
 const App = () => {
   const { authUser, isAuthenticated } = useAuthContext();
-  console.log(`isAuthenticated: `, isAuthenticated);
-  console.log(`authUser: `, authUser);
+  // console.log(`isAuthenticated: `, isAuthenticated);
+  // console.log(`authUser: `, authUser);
 
   return (
     <div className="p-4 h-screen flex flex-col items-center justify-center">
