@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useConversation from "../../zustand/useConversation";
 import { useSocketContext } from "../../context/SocketContext";
 import { getRandomEmoji } from "../../util/emojis";
@@ -11,11 +11,7 @@ const Conversation = ({ conversation }) => {
   const isSelected = selectedCon?._id === _id;
 
   const { onlineUsers } = useSocketContext();
-  const isOnline =
-    onlineUsers.includes(conversation._id) || _id === `bot12345678`;
-
-  // const [selectedParticipants, setSelectedParticipants] = useState([]);
-  // console.log(`selectedParticipants`, selectedParticipants);
+  const isOnline = onlineUsers.includes(conversation._id);
 
   const { selectGroup } = useGroupGloablState();
   const [clickedforGrp, setClickedforGrp] = useState(false);
@@ -25,15 +21,12 @@ const Conversation = ({ conversation }) => {
   const addSelect = (newMember) => {
     if (groupMembers.includes(newMember)) return;
     setGroupMembers([...groupMembers, newMember]);
-    console.log(`groupMembers`, groupMembers);
   };
 
   const removeSelect = (newMember) => {
+    if (!groupMembers.includes(newMember)) return;
     setGroupMembers(groupMembers.filter((member) => member !== newMember));
-    console.log(`groupMembers`, groupMembers);
   };
-
-  console.log(`groupMembers`, groupMembers);
 
   return (
     <>

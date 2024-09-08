@@ -3,11 +3,13 @@ import Group from "../model/group.model.js";
 export const createGroup = async (req, res) => {
   try {
     const { name, description, members } = req.body;
-    console.log("name", name);
-    console.log("description", description);
-    console.log("members", members);
-    members.push(req.user);
-    console.log("members", members);
+    members.push({
+      _id: req.user._id,
+      fullName: req.user.fullName,
+      username: req.user.username,
+      gender: req.user.gender,
+      profilePic: req.user.profilePic,
+    });
     const newGroup = new Group({
       name,
       description: description || "",
@@ -20,11 +22,10 @@ export const createGroup = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-//function for get group
-export const getGroup = async (req, res) => {
+export const getGroups = async (req, res) => {
   try {
-    const groups = await Group.find();
-    res.status(200).json(groups);
+    const groups = await Group.find({ members: req.user._id });
+    res.status(200).json({ message: "Groups fetched successfully", groups });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
