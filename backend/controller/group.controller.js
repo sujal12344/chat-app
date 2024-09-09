@@ -22,9 +22,11 @@ export const createGroup = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-export const getGroups = async (req, res) => {
+export const getGroupsForSidebar = async (req, res) => {
   try {
-    const groups = await Group.find({ members: req.user._id });
+    const groups = await Group.find({ members: req.user._id }).select(
+      "_id name description members groupAdmin profilePic"
+    );
     res.status(200).json({ message: "Groups fetched successfully", groups });
   } catch (error) {
     res.status(500).json({ message: error.message });

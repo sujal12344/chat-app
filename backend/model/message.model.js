@@ -6,10 +6,12 @@ const messageSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    receiverId: {
-      type: String,
-      required: true,
-    },
+    receiverId: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     message: {
       type: String,
       required: true,

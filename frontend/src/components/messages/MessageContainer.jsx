@@ -4,9 +4,15 @@ import { HiOutlineChatAlt2 } from "react-icons/hi";
 import useConversation from "../../zustand/useConversation.js";
 import { useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext.jsx";
+import useGlobalState from "../../zustand/global.js";
+import useGroupGloablState from "../../zustand/useGroupGlobalState.js";
 
 const MessageContainer = () => {
   const { selectedCon, setSelectedCon } = useConversation();
+  const { selectedGroupCon, setSelectedGroupCon } = useGroupGloablState();
+  console.log(`selectedGroupCon`, selectedGroupCon);
+  console.log(`setSelectedGroupCon`, setSelectedGroupCon);
+  const { view } = useGlobalState();
 
   useEffect(() => {
     // cleanup function
@@ -21,9 +27,14 @@ const MessageContainer = () => {
       ) : (
         <>
           <div className="bg-cyan-400 px-4 py-2 mb-2">
-            <span className="label-text text-black font-normal">{"TO: "}</span>
+            <span className="label-text text-black font-normal">
+              {view === "Chats" ? "TO: " : "GROUP: "}
+            </span>
             <span className="text-gray-900 font-bold">
-              {selectedCon?.fullName}
+              {view === "Chats"
+                ? selectedCon?.fullName
+                : selectedGroupCon?.name +
+                  ` (${selectedGroupCon?.members.length})`}
             </span>
           </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import useGroupGloablState from "../../zustand/useGroupGlobalState.js";
@@ -8,12 +8,16 @@ import Button from "../ui/Button.jsx";
 import Conversation from "./Conversation.jsx";
 
 const Conversations = ({ conversations, loading }) => {
-  const { selectGroup, groupMembers } = useGroupGloablState();
+  const { selectGroup, setSelectGroup, groupMembers } = useGroupGloablState();
 
   const [crtgrpLoad, setCrtgrpLoad] = useState(false);
   const [groupName, setGroupName] = useState();
 
   const { createGroup } = useCreateGroup();
+
+  useEffect(() => {
+    return () => setSelectGroup(false); // cleanup function
+  }, []);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();

@@ -5,16 +5,19 @@ import useGetConversation from "../../hooks/useGetConversation.js";
 import { IoSearchSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
 import useListenUser from "../../hooks/useListenUser.js";
-import useGroupGloablState from "../../zustand/useGroupGlobalState.js";
 import RedialMenu from "./RedialMenu.jsx";
+import GrpCon from "./Groups.jsx";
+import useGetGroupsCon from "../../hooks/useGetGroupsCon.js";
+import useGlobalState from "../../zustand/global.js";
 
 const Sidebar = () => {
   const { loading: searchLoading, conversations } = useGetConversation();
+  const { loading: groupsConLoading, groupsCon } = useGetGroupsCon();
 
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [matchConversations, setMatchConversations] = useState(conversations);
-  const [view, setView] = useState("Chats");
+  const { view, setView } = useGlobalState();
 
   useListenUser();
 
@@ -97,13 +100,10 @@ const Sidebar = () => {
             />
           ) : (
             view === "Groups" && (
-              <div className="flex justify-center items-center h-96 text-white">
-                {/* <Gruops
-                  conversations={search ? matchConversations : conversations}
-                  loading={loading}
-                /> */}
-                <span className="loading loading-spinner loading-lg"></span>
-              </div>
+              <GrpCon
+                conversations={search ? matchConversations : groupsCon}
+                loading={loading}
+              />
             )
           )}
         </div>
