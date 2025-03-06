@@ -2,7 +2,6 @@ import requiredFieldFunnction from "../util/requiredFieldFunction.js";
 import User from "../model/user.model.js";
 import bcryptjs from "bcryptjs";
 import generateToken from "../util/generateToken.js";
-import ApiResponse from "../util/ApiResponse.js";
 import isStrongPassword from "../util/isStrongPassword.js";
 import { getReceiverSocketId, io } from "../socket/socket.js";
 
@@ -92,7 +91,6 @@ const signup = async (req, res) => {
 
     io.except(createdUserSocketId).emit("newUser", createdUser);
 
-    // ApiResponse(res, 201, createdUser, "User created successfully");
     res
       .cookie("jwt", token, options)
       .status(201)
@@ -140,7 +138,6 @@ const login = async (req, res) => {
         message: `'${username}' logged in successfully`,
         loggedInUser,
       });
-    // ApiResponse(res, 200, loggedInUser, "User logged in successfully");
   } catch (error) {
     return res
       .status(500)
@@ -151,8 +148,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   try {
     res.clearCookie("jwt", options);
-
-    ApiResponse(res, 200, null, "You logged out.");
+    res.status(200).json({ message: "You logged out." });
   } catch (error) {
     return res
       .status(500)
@@ -173,7 +169,7 @@ const deleteAccount = async (req, res) => {
     const deletedUserSocketId = getReceiverSocketId(user._id);
     io.except(deletedUserSocketId).emit("deleteUser", user);
 
-    ApiResponse(res, 200, null, "User deleted successfully");
+    res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     return res
       .status(500)

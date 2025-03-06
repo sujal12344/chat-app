@@ -4,6 +4,7 @@ import {
   getMessage,
   aboutMe,
   sendGroupMessage,
+  getGroupMessage,
 } from "../controller/message.controller.js";
 import protectRoute from "../middleware/protect.middleware.js";
 
@@ -15,7 +16,7 @@ messageRouter.post("/send/:id", protectRoute, sendMessage);
 
 messageRouter.get("/user/aboutMe", protectRoute, aboutMe);
 
-// messageRouter.get("/group/:groupId", protectRoute, getGroupMessage);
+messageRouter.get("/group/:groupId", protectRoute, getGroupMessage);
 
 messageRouter.post("/group/send/:groupMembers", protectRoute, sendGroupMessage);
 
