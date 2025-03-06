@@ -10,8 +10,8 @@ import useGroupGloablState from "../../zustand/useGroupGlobalState.js";
 const MessageContainer = () => {
   const { selectedCon, setSelectedCon } = useConversation();
   const { selectedGroupCon, setSelectedGroupCon } = useGroupGloablState();
-  console.log(`selectedGroupCon`, selectedGroupCon);
-  console.log(`setSelectedGroupCon`, setSelectedGroupCon);
+  // console.log(`selectedGroupCon`, selectedGroupCon);
+  // console.log(`setSelectedGroupCon`, setSelectedGroupCon);
   const { view } = useGlobalState();
 
   useEffect(() => {

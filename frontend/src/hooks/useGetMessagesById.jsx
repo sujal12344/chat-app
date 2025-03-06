@@ -26,7 +26,6 @@ const useGetMessageById = () => {
           }
         );
         let data = await res.json();
-        console.log(`data`, data);
 
         if (res.status === 200) {
           const { messages } = data;
@@ -61,6 +60,7 @@ const useGetMessageById = () => {
             }
           });
           setMessages(transformedMessages);
+          console.log("messages", messages);
           return true;
         } else {
           setMessages([]);

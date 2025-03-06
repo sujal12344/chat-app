@@ -34,12 +34,12 @@ const useSendMessage = () => {
         return false;
       }
       if (res.status === 201) {
-        if (data.data.newMessage.type === "img") {
-          data.data.newMessage.message = (
-            <img src={data.data.newMessage.message} alt="image" />
+        if (data.newMessage.type === "img") {
+          data.newMessage.message = (
+            <img src={data.newMessage.message} alt="image" />
           );
         }
-        setMessages([...messages, data.data.newMessage]);
+        setMessages([...messages, data.newMessage]);
         return true;
       }
     } catch (error) {

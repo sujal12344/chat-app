@@ -8,7 +8,8 @@ import Button from "../ui/Button.jsx";
 import Conversation from "./Conversation.jsx";
 
 const Conversations = ({ conversations, loading }) => {
-  const { selectGroup, setSelectGroup, groupMembers } = useGroupGloablState();
+  const { selectGroup, setSelectGroup, groupMembers, setGroupMembers } =
+    useGroupGloablState();
 
   const [crtgrpLoad, setCrtgrpLoad] = useState(false);
   const [groupName, setGroupName] = useState();
@@ -22,14 +23,15 @@ const Conversations = ({ conversations, loading }) => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    if (!groupName || groupMembers.length < 2) {
-      return toast.error("Please give group name or add atleast 2 member");
-    }
+    // if (!groupName || groupMembers.length < 2) {
+    //   return toast.error("Please give group name or add atleast 2 member");
+    // }
 
     setCrtgrpLoad(true);
 
     const createGroupOrNot = await createGroup(groupName, groupMembers);
     setCrtgrpLoad(false);
+    setGroupMembers([]);
     setGroupName("");
     console.log(`createGroupOrNot: `, createGroupOrNot);
   };

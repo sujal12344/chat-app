@@ -21,7 +21,7 @@ const MessageInput = () => {
     } else if (view === "Groups") {
       const groupMessageSendOrNot = await sendGroupMessage(message);
       setMessage("");
-      console.log("Group message", groupMessageSendOrNot);
+      console.log("groupMessageSendOrNot", groupMessageSendOrNot);
     }
   };
 

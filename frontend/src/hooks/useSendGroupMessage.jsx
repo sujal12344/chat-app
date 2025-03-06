@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
-import useGroupGloablState from "../zustand/useGroupGlobalState";
+import useGroupGloablState from "../zustand/useGroupGlobalState.js";
 
 const useSendGroupMessage = () => {
   const [loading, setLoading] = useState(false);
-  const { selectedGroupCon, setSelectedGroupCon, messages, setMessages } =
-    useGroupGloablState();
+  const { selectedGroupCon, messages, setMessages } = useGroupGloablState();
 
   const sendGroupMessage = async (message, type = "text") => {
     if (!message) {
@@ -31,16 +30,15 @@ const useSendGroupMessage = () => {
       );
 
       const data = await res.json();
-      console.log("from the backend data: ", data);
-      // if (res.status === 201) {
-      //   if (data.data.newMessage.type === "img") {
-      //     data.data.newMessage.message = (
-      //       <img src={data.data.newMessage.message} alt="image" />
-      //     );
-      //   }
-      //   setMessages([...messages, data.data.newMessage]);
-      //   return true;
-      // }
+      if (res.status === 201) {
+        if (data.newMessage.type === "img") {
+          data.newMessage.message = (
+            <img src={data.newMessage.message} alt="image" />
+          );
+        }
+        setMessages([...messages, data.newMessage]);
+        return true;
+      }
     } catch (error) {
       console.log(error.message);
       toast.error(error.message, { style: { width: "100%" } });

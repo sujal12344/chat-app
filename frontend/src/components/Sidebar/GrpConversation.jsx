@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import { getRandomEmoji } from "../../util/emojis";
 import useGroupGloablState from "../../zustand/useGroupGlobalState";
 
-const GrpConversation = ({ conversation }) => {
+const GrpConversation = ({ conversation, emoji }) => {
   const { _id, name, description, profilePic, groupAdmin } = conversation;
-  console.log(`conversation`, conversation);
 
   const { selectedGroupCon, setSelectedGroupCon } = useGroupGloablState();
   const isSelected = selectedGroupCon?._id === _id;

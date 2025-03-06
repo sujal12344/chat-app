@@ -1,9 +1,13 @@
 import React from "react";
 import useSendMessage from "../../hooks/useSendMessage";
 import { getRandomGif } from "../../util/gifs";
+import useGlobalState from "../../zustand/global";
+import useSendGroupMessage from "../../hooks/useSendGroupMessage";
 
 const NewChatModal = () => {
+  const { view } = useGlobalState();
   const { loading, sendMessage } = useSendMessage();
+  const { loading: groupLoading, sendGroupMessage } = useSendGroupMessage();
   const GIF = <img src={getRandomGif()} alt="Emoji" className="scale-[0.8]" />;
   const type = GIF.type;
 
