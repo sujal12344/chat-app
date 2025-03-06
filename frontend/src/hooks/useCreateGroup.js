@@ -1,13 +1,12 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useGroupGloablState from "../zustand/useGroupGlobalState";
 
 const useCreateGroup = () => {
   const [loading, setLoading] = useState(false);
+  const { setGroupMembers } = useGroupGloablState();
 
   const createGroup = async (name, members, description) => {
-    console.log(`from the createGroup hook: `, name, members);
-    console.log(members.length);
-
     if (!name || !members || members.length === 0) {
       return false;
     }
@@ -43,6 +42,7 @@ const useCreateGroup = () => {
       return false;
     } finally {
       setLoading(false);
+      setGroupMembers([]);
     }
   };
 

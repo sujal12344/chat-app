@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
 import useGroupGloablState from "../zustand/useGroupGlobalState";
+import useGlobalState from "../zustand/global";
 
 const useGetGroupsCon = () => {
   const [loading, setLoading] = useState(false);
   const { groupsCon, setGroupsCon } = useGroupGloablState();
+  const { view } = useGlobalState();
 
   useEffect(() => {
     const getGroupsCon = async () => {
@@ -20,7 +21,6 @@ const useGetGroupsCon = () => {
           }
         );
         const result = await JSON.parse(await res.text());
-        console.log("result", result);
         if (res.status === 200) {
           const { message, groups } = result;
           toast.success(message);
@@ -37,8 +37,8 @@ const useGetGroupsCon = () => {
         setLoading(false);
       }
     };
-    getGroupsCon();
-  }, []);
+    if (view === "Groups") getGroupsCon();
+  }, [view]);
   return { loading, groupsCon };
 };
 

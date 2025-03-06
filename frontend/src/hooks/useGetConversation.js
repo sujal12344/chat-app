@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useConversation from "../zustand/useConversation";
+import useGlobalState from "../zustand/global";
 
 const useGetConversation = () => {
   const [loading, setLoading] = useState(false);
   const { conversations, setConversations } = useConversation();
+  const { view } = useGlobalState();
 
   useEffect(() => {
     const getConversation = async () => {
@@ -20,8 +22,7 @@ const useGetConversation = () => {
         );
         const result = await JSON.parse(await res.text());
         if (res.status === 200) {
-          const { data, message } = result;
-          const { filteredUser } = data;
+          const { filteredUser, message } = result;
           toast.success(message);
           setConversations(filteredUser);
           return true;
@@ -36,8 +37,8 @@ const useGetConversation = () => {
         setLoading(false);
       }
     };
-    getConversation();
-  }, []);
+    if (view === "Chats") getConversation();
+  }, [view]);
   return { loading, conversations };
 };
 
