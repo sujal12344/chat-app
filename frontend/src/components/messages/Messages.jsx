@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import useGetMessageById from "../../hooks/useGetMessagesById.jsx";
 import LoadingSkeleton from "../ui/LoadingSkeleton.jsx";
 import NewChatModal from "../ui/NewChatModal.jsx";
+import ServerError from "../ui/ServerError.jsx";
 import Message from "./Message.jsx";
 // import useListenMessages from "../../hooks/useListenMessages.jsx";
 import useGetGroupMessages from "../../hooks/useGetGroupMessages.jsx";
@@ -18,26 +19,20 @@ const Messages = () => {
 
   // useListenMessages();
 
-  if (view === "Chats") {
-    useEffect(() => {
+  useEffect(() => {
+    const currentMessages = view === "Chats" ? messages : groupMessages;
+    if (currentMessages && currentMessages.length > 0) {
       setTimeout(() => {
         lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-      });
-    }, [messages]);
-  }
+      }, 100);
+    }
+  }, [messages, groupMessages, view]);
 
-  if (view === "Groups") {
-    useEffect(() => {
-      setTimeout(() => {
-        lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-      });
-    }, [groupMessages]);
-  }
   const isMessagesArray = Array.isArray(messages);
   const isGroupMessagesArray = Array.isArray(groupMessages);
 
   return (
-    <div className="md:p-4 p-1 flex-1 overflow-auto">
+    <div className="p-1 min-[480px]:p-2 sm:p-3 md:p-4 lg:p-5 flex-1 overflow-y-auto overflow-x-hidden max-h-full hide-scrollbar">
       {view === "Chats" ? (
         <>
           {!loading && isMessagesArray && messages.length === 0 && (
@@ -46,8 +41,12 @@ const Messages = () => {
           {!loading &&
             isMessagesArray &&
             messages.length > 0 &&
-            messages.map((message) => (
-              <div className="" key={message._id} ref={lastMessageRef}>
+            messages.map((message, index) => (
+              <div
+                className=""
+                key={message._id}
+                ref={index === messages.length - 1 ? lastMessageRef : null}
+              >
                 <Message message={message} />
               </div>
             ))}
@@ -63,13 +62,15 @@ const Messages = () => {
             {!groupLoading &&
               isGroupMessagesArray &&
               groupMessages.length > 0 &&
-              groupMessages.map((message2) => (
-                <div className="" key={message2._id} ref={lastMessageRef}>
-                  <Message
-                    message={message2}
-                    key={message2._id + Math.random().length}
-                  />
-                  {/* {message2} */}
+              groupMessages.map((message2, index) => (
+                <div
+                  className=""
+                  key={message2._id}
+                  ref={
+                    index === groupMessages.length - 1 ? lastMessageRef : null
+                  }
+                >
+                  <Message message={message2} />
                 </div>
               ))}
             {!groupLoading && !isGroupMessagesArray && <ServerError />}

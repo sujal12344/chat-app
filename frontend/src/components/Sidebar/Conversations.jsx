@@ -7,7 +7,7 @@ import useCreateGroup from "../../hooks/useCreateGroup.js";
 import Button from "../ui/Button.jsx";
 import Conversation from "./Conversation.jsx";
 
-const Conversations = ({ conversations, loading }) => {
+const Conversations = ({ conversations, loading, onChatSelect }) => {
   const { selectGroup, setSelectGroup, groupMembers, setGroupMembers } =
     useGroupGloablState();
 
@@ -37,9 +37,13 @@ const Conversations = ({ conversations, loading }) => {
   };
 
   return (
-    <div className={`py-2 flex flex-col overflow-auto`}>
+    <div className={`py-2 flex flex-col overflow-auto hide-scrollbar`}>
       {conversations.map((conversation) => (
-        <Conversation key={conversation._id} conversation={conversation} />
+        <Conversation
+          key={conversation._id}
+          conversation={conversation}
+          onChatSelect={onChatSelect}
+        />
       ))}
 
       {selectGroup && (

@@ -9,23 +9,32 @@ body {
   background-size: cover;
 }
 
-/* dark mode looking scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  /* background-color: #98c0f1 */
+/* Hide scrollbars for chat app */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
-::-webkit-scrollbar-track {
-  background: #555;
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
-::-webkit-scrollbar-thumb {
-  background: #121212;
-  border-radius: 5px;
+/* Optional: Keep a subtle scrollbar for main containers if needed */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #242424;
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* SHAKE ANIMATION ON HORIZONTAL DIRECTION */

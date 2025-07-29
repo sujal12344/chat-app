@@ -1,11 +1,15 @@
 import React from "react";
 import GrpConversation from "./GrpConversation.jsx";
 
-const GrpCon = ({ conversations, loading }) => {
+const GrpCon = ({ conversations, loading, onChatSelect }) => {
   return (
-    <div className={`py-2 flex flex-col overflow-auto`}>
+    <div className={`py-2 flex flex-col overflow-auto hide-scrollbar`}>
       {conversations.map((conversation) => (
-        <GrpConversation key={conversation._id} conversation={conversation} />
+        <GrpConversation
+          key={conversation._id}
+          conversation={conversation}
+          onChatSelect={onChatSelect}
+        />
       ))}
 
       {loading ? (

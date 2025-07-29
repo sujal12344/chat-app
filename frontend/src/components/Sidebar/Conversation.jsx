@@ -4,7 +4,7 @@ import { useSocketContext } from "../../context/SocketContext";
 import { getRandomEmoji } from "../../util/emojis";
 import useGroupGloablState from "../../zustand/useGroupGlobalState";
 
-const Conversation = ({ conversation }) => {
+const Conversation = ({ conversation, onChatSelect }) => {
   const { _id, username, profilePic } = conversation;
 
   const { selectedCon, setSelectedCon } = useConversation();
@@ -47,9 +47,9 @@ const Conversation = ({ conversation }) => {
           </div>
         )}
         <div
-          className={`flex flex-row gap-2 items-center
+          className={`flex flex-row gap-1.5 min-[480px]:gap-2 items-center
           ${isSelected ? `bg-sky-700 hover:bg-sky-600` : `hover:bg-sky-500`}
-          rounded p-2 py-1 cursor-pointer flex-grow justify-self-start`}
+          rounded p-1.5 min-[480px]:p-2 py-1 cursor-pointer flex-grow justify-self-start`}
           onClick={
             selectGroup
               ? clickedforGrp
@@ -59,23 +59,30 @@ const Conversation = ({ conversation }) => {
                 : () => {
                     addSelect(conversation), setClickedforGrp(true);
                   }
-              : () => setSelectedCon(conversation)
+              : () => {
+                  setSelectedCon(conversation);
+                  if (onChatSelect) onChatSelect();
+                }
           }
         >
           <div className={`avatar ${isOnline && `online`}`}>
-            <div className="w-12 rounded-full text-center">
+            <div className="w-8 min-[480px]:w-10 sm:w-12 rounded-full text-center">
               <img src={profilePic} alt={`${username} avatar`} />
             </div>
           </div>
-          <div className="flex flex-col flex-1">
-            <div className="flex justify-between">
-              <p className="font-bold text-gray-200">{username}</p>
-              <span className="text-2xl">{getRandomEmoji()}</span>
+          <div className="flex flex-col flex-1 min-w-0">
+            <div className="flex justify-between items-center">
+              <p className="font-bold text-gray-200 text-xs min-[480px]:text-sm sm:text-base truncate pr-1">
+                {username}
+              </p>
+              <span className="text-lg min-[480px]:text-xl sm:text-2xl flex-shrink-0">
+                {getRandomEmoji()}
+              </span>
             </div>
           </div>
         </div>
       </div>
-      <div className="divider my-0 py-0 h-1"></div>
+      <div className="divider my-0 py-0 h-0.5 min-[480px]:h-1"></div>
     </>
   );
 };

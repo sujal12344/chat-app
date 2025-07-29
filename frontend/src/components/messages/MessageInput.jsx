@@ -26,29 +26,32 @@ const MessageInput = () => {
   };
 
   return (
-    <form className="px-4 my-3" onSubmit={handleOnSubmit}>
+    <form
+      className="px-3 min-[400px]:px-4 sm:px-5 md:px-6 py-3 min-[400px]:py-4"
+      onSubmit={handleOnSubmit}
+    >
       <div className="w-full relative">
         <input
           type="text"
-          className="border text-sm rounded-lg block w-full p-2.5  bg-[#0e0e34] border-gray-600 text-[#f1f1f1]"
+          className="border text-sm min-[400px]:text-base rounded-lg block w-full p-2.5 min-[400px]:p-3 sm:p-3.5 bg-[#0e0e34] border-gray-600 text-[#f1f1f1] pr-12 min-[400px]:pr-14"
           placeholder="Send a message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
         <button
           type="submit"
-          className="absolute inset-y-0 end-0 flex items-center pe-3"
+          className="absolute inset-y-0 end-0 flex items-center pe-2 sm:pe-3"
         >
           {view === "Chats" ? (
             loading ? (
-              <span className="animate-spin h-5 w-5 text-white loading"></span>
+              <span className="animate-spin h-4 w-4 sm:h-5 sm:w-5 text-white loading"></span>
             ) : (
-              <RiSendPlaneFill className="h-5 w-5 md:h-6 md:w-6 text-white" />
+              <RiSendPlaneFill className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-white" />
             )
           ) : view === "Groups" && groupLoading ? (
-            <span className="animate-spin h-5 w-5 text-white loading"></span>
+            <span className="animate-spin h-4 w-4 sm:h-5 sm:w-5 text-white loading"></span>
           ) : (
-            <RiSendPlaneFill className="h-5 w-5 md:h-6 md:w-6 text-white" />
+            <RiSendPlaneFill className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-white" />
           )}
         </button>
       </div>
